@@ -35,32 +35,41 @@ public class OrdArray {
     }
 
     public void insert(long value) {
-        int j;
+        if (nElems != 0) {
+            int lowerBound = 0;
+            int upperBound = nElems - 1;
+            int curIn;
 
-        int lowerBound = 0;
-        int upperBound = nElems - 1;
-        int curIn;
-
-        while (true) {
-            curIn = (lowerBound + upperBound) / 2;
-            if (arr[curIn] > value) {
-                upperBound = curIn;
-            } else {
-                lowerBound = curIn;
+            while (true) {
+                curIn = (lowerBound + upperBound) / 2;
+                if (arr[curIn] == value) {
+                    break;
+                } else if (lowerBound > upperBound) {
+                    break;
+                } else {
+                    if (upperBound - lowerBound == 0) {
+                        if (value > arr[curIn]) {
+                            curIn = curIn + 1;
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else if (arr[curIn] > value) {
+                        upperBound = curIn - 1;
+                    } else {
+                        lowerBound = curIn + 1;
+                    }
+                }
             }
 
-            //todo
-        }
+            for (int i = nElems - 1; i >= curIn; i--) {
+                arr[i + 1] = arr[i];
+            }
 
-        for (j = 0; j < nElems; j++) {
-            if (arr[j] > value) break;
+            arr[curIn] = value;
+        } else {
+            arr[0] = value;
         }
-
-        for (int i = nElems; i > j; i--) {
-            arr[i] = arr[i - 1];
-        }
-
-        arr[j] = value;
 
         nElems++;
     }
@@ -71,7 +80,7 @@ public class OrdArray {
             return false;
         } else {
             for (int i = j; i < nElems; i++) {
-                arr[i] = arr[ i + 1];
+                arr[i] = arr[i + 1];
             }
         }
         nElems--;
@@ -79,8 +88,8 @@ public class OrdArray {
 
     }
 
-    public void display(){
-        for (int i = 0; i<nElems; i++){
+    public void display() {
+        for (int i = 0; i < nElems; i++) {
             System.out.print(arr[i] + " ");
         }
         System.out.println("");
