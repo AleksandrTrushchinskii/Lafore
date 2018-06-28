@@ -1,7 +1,5 @@
 package sort.insertion;
 
-import sort.selection.ArraySel;
-
 public class InsertionSortApp {
     public static void main(String[] args) {
         int maxSize = 100;
